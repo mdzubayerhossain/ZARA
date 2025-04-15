@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZAVA - Elegant South Asian Fashion</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* General Styles */
+        :root {
+            --primary-color: #8e44ad;
+            --secondary-color: #e74c3c;
+            --accent-color: #f39c12;
+            --light-color: #f5f5f5;
+            --dark-color: #2c3e50;
+            --text-color: #333;
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-color);
+            background-color: #fff;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: var(--transition);
+        }
+        
+        .btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Header & Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 20px 0;
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+        
+        header.scrolled {
+            padding: 10px 0;
+        }
+        
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary-color);
+            letter-spacing: 2px;
+        }
+        
+        .logo span {
+            color: var(--secondary-color);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 30px;
+        }
+        
+        nav ul li a {
+            position: relative;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        nav ul li a:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            transition: var(--transition);
+        }
+        
+        nav ul li a:hover {
+            color: var(--primary-color);
+        }
+        
+        nav ul li a:hover:after {
+            width: 100%;
+        }
+        
+        .mobile-menu {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, rgba(142, 68, 173, 0.8), rgba(231, 76, 60, 0.8));
+            overflow: hidden;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            color: white;
+            max-width: 600px;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 1s ease forwards 0.5s;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 1s ease forwards 0.7s;
+        }
+        
+        .hero .btn {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 1s ease forwards 0.9s;
+        }
+        
+        .hero-image {
+            position: absolute;
+            right: 0;
+            top: 0;
+            height: 100%;
+            width: 50%;
+            background-color: #ccc;
+            clip-path: polygon(15% 0, 100% 0, 100% 100%, 0 100%);
+        }
+        
+        .hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: url('/api/placeholder/1200/800');
+            background-size: cover;
+            background-position: center;
+            z-index: 0;
+            animation: zoomIn 10s infinite alternate;
+        }
+        
+        /* Featured Collections */
+        .collections {
+            padding: 100px 0;
+            background-color: var(--light-color);
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--dark-color);
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--primary-color);
+        }
+        
+        .section-header p {
+            color: #777;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .collection-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .collection-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+        
+        .collection-item:hover {
+            transform: translateY(-10px);
+        }
+        
+        .collection-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        .collection-item img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .collection-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            padding: 20px;
+            color: white;
+            transform: translateY(20%);
+            opacity: 0;
+            transition: var(--transition);
+        }
+        
+        .collection-item:hover .collection-overlay {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .collection-overlay h3 {
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+        }
+        
+        /* Brands Section */
+        .brands {
+            padding: 100px 0;
+        }
+        
+        .brands-slider {
+            display: flex;
+            flex-wrap: nowrap;
+            overflow: hidden;
+            margin: 0 -15px;
+        }
+        
+        .brand-item {
+            flex: 0 0 25%;
+            max-width: 25%;
+            padding: 0 15px;
+            text-align: center;
+            transition: var(--transition);
+        }
+        
+        .brand-item:hover {
+            transform: scale(1.05);
+        }
+        
+        .brand-item h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+        
+        .brand-item p {
+            color: #777;
+            margin-bottom: 15px;
+        }
+        
+        .brand-image {
+            height: 250px;
+            background-color: var(--light-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .brand-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* About Section */
+        .about {
+            padding: 100px 0;
+            background-color: var(--light-color);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .about-inner {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+        
+        .about-image {
+            flex: 0 0 45%;
+            overflow: hidden;
+            border-radius: 8px;
+            position: relative;
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .about-content {
+            flex: 0 0 50%;
+        }
+        
+        .about-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--dark-color);
+        }
+        
+        .about-content p {
+            margin-bottom: 20px;
+            color: #555;
+            line-height: 1.8;
+        }
+        
+        .about-pattern {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 300px;
+            height: 300px;
+            opacity: 0.05;
+            transform: rotate(45deg);
+            background-image: linear-gradient(45deg, var(--primary-color) 25%, transparent 25%), 
+                linear-gradient(-45deg, var(--primary-color) 25%, transparent 25%),
+                linear-gradient(45deg, transparent 75%, var(--primary-color) 75%),
+                linear-gradient(-45deg, transparent 75%, var(--primary-color) 75%);
+            background-size: 20px 20px;
+        }
+        
+        /* Contact Section */
+        .contact {
+            padding: 100px 0;
+        }
+        
+        .contact-inner {
+            display: flex;
+            gap: 50px;
+        }
+        
+        .contact-info {
+            flex: 0 0 40%;
+        }
+        
+        .contact-info h2 {
+            font-size: 2rem;
+            margin-bottom: 30px;
+            color: var(--dark-color);
+        }
+        
+        .contact-info p {
+            margin-bottom: 20px;
+            color: #555;
+            line-height: 1.8;
+        }
+        
+        .contact-info ul {
+            list-style: none;
+        }
+        
+        .contact-info ul li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .contact-info ul li i {
+            margin-right: 15px;
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+        
+        .contact-form {
+            flex: 0 0 55%;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary-color);
+            outline: none;
+        }
+        
+        textarea.form-control {
+            height: 150px;
+            resize: vertical;
+        }
+        
+        /* Social Links */
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-link {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            transition: var(--transition);
+            animation: pulse 2s infinite;
+        }
+        
+        .social-link:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-5px);
+        }
+        
+        .social-link.facebook {
+            background-color: #3b5998;
+        }
+        
+        .social-link.tiktok {
+            background-color: #000;
+        }
+        
+        /* Footer */
+        footer {
+            padding: 50px 0;
+            background-color: var(--dark-color);
+            color: white;
+        }
+        
+        .footer-inner {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .footer-col h3 {
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--primary-color);
+        }
+        
+        .footer-col ul {
+            list-style: none;
+        }
+        
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-col ul li a {
+            transition: var(--transition);
+        }
+        
+        .footer-col ul li a:hover {
+            color: var(--primary-color);
+            padding-left: 5px;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Animations */
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes zoomIn {
+            from {
+                transform: scale(1);
+            }
+            to {
+                transform: scale(1.1);
+            }
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(142, 68, 173, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(142, 68, 173, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(142, 68, 173, 0);
+            }
+        }
+        
+        /* Hover animations for collections */
+        .collection-item {
+            position: relative;
+        }
+        
+        .collection-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 0%;
+            background: linear-gradient(to bottom, rgba(142, 68, 173, 0.3), transparent);
+            transition: height 0.5s ease;
+        }
+        
+        .collection-item:hover::before {
+            height: 100%;
+        }
+        
+        /* Media Queries */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            .about-inner {
+                flex-direction: column;
+            }
+            
+            .about-image, .about-content {
+                flex: 0 0 100%;
+            }
+            
+            .contact-inner {
+                flex-direction: column;
+            }
+            
+            .contact-info, .contact-form {
+                flex: 0 0 100%;
+            }
+            
+            .brand-item {
+                flex: 0 0 33.33%;
+                max-width: 33.33%;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+            
+            .mobile-menu {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-image {
+                clip-path: none;
+                width: 100%;
+                opacity: 0.2;
+            }
+            
+            .hero-content {
+                text-align: center;
+                margin: 0 auto;
+            }
+            
+            .brand-item {
+                flex: 0 0 50%;
+                max-width: 50%;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .brand-item {
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
+        }
+        /* Base styles */
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .brands-slider {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .brand-item {
+        max-width: 90%;
+    }
+}
+
+@media (max-width: 480px) {
+    .section-header h2 {
+        font-size: 1.5rem;
+    }
+
+    .section-header p {
+        font-size: 0.9rem;
+    }
+
+    .brand-item {
+        padding: 15px;
+    }
+
+    .brand-item h3 {
+        font-size: 1.2rem;
+    }
+
+    .brand-item p {
+        font-size: 0.9rem;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-inner">
+            <div class="logo">
+                <a href="#">
+                    <img src="zavalogo.jpg" alt="ZAVA Logo" style="height: 40px;">
+                </a>
+            </div>
+            
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#collections">Collections</a></li>
+                    <li><a href="#brands">Brands</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <div class="mobile-menu">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container hero-content">
+            <h1>Elegant South Asian Fashion</h1>
+            <p>Discover the beauty of Pakistani, Indian, and Afghani dresses from premium brands.</p>
+            <a href="#collections" class="btn">Explore Collection</a>
+        </div>
+        <div class="hero-image">
+            <img src="Dress/Imperial_9_600x.jpg" alt="Featured Dress">
+        </div>
+    </section>
+
+    <!-- Featured Collections -->
+    <section class="collections" id="collections">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Collections</h2>
+                <p>Discover our carefully curated collection of traditional and contemporary South Asian dresses</p>
+            </div>
+            <div class="collection-grid">
+                <div class="collection-item">
+                    <img src="Dress/home2.jpg" alt="Pakistani Dresses">
+                    <div class="collection-overlay">
+                        <h3>Pakistani Collection</h3>
+                        <p>Exquisite Pakistani dresses featuring intricate embroidery and premium fabrics</p>
+                    </div>
+                </div>
+                <div class="collection-item">
+                    <img src="Dress/indian.jpg" alt="Indian Dresses">
+                    <div class="collection-overlay">
+                        <h3>Indian Collection</h3>
+                        <p>Beautiful Indian attire showcasing rich cultural heritage and craftsmanship</p>
+                    </div>
+                </div>
+                <div class="collection-item">
+                    <img src="Dress/afgani.jpg_width=640" alt="Afghani Dresses">
+                    <div class="collection-overlay">
+                        <h3>Afghani Collection</h3>
+                        <p>Traditional Afghani dresses with vibrant colors and authentic designs</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Brands Section -->
+    <section class="brands" id="brands">
+        <div class="container">
+            <div class="section-header">
+                <h2>Featured Brands</h2>
+                <p>We proudly feature these premium South Asian fashion brands</p>
+            </div>
+            <div class="brands-slider">
+                <div class="brand-item">
+                    <div class="brand-image">
+                        <img src="Dress/Shadabaharimg.jpg" alt="Shadabahar">
+                    </div>
+                    <h3>Shadabahar</h3>
+                    <p>Timeless elegance and traditional craftsmanship</p>
+                </div>
+                <div class="brand-item">
+                    <div class="brand-image">
+                        <img src="Dress/aganoor.jpg" alt="Aganoor">
+                    </div>
+                    <h3>Aganoor</h3>
+                    <p>Contemporary designs with traditional aesthetics</p>
+                </div>
+                <div class="brand-item">
+                    <div class="brand-image">
+                        <img src="Dress/bin.jpg" alt="Bin Saeed">
+                    </div>
+                    <h3>Bin Saeed</h3>
+                    <p>Luxurious fabrics with intricate detailing</p>
+                </div>
+                <div class="brand-item">
+                    <div class="brand-image">
+                        <img src="Dress/tawak.jpg" alt="Tawwakkal">
+                    </div>
+                    <h3>Tawwakkal</h3>
+                    <p>Premium quality with authentic designs</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container about-inner">
+            <div class="about-image">
+                <img src="Dress/aouring.jpg" alt="About ZAVA">
+            </div>
+            <div class="about-content">
+                <h2>About ZAVA</h2>
+                <p>Welcome to ZAVA, your premier destination for authentic South Asian fashion. We specialize in bringing the rich cultural heritage of Pakistan, India, and Afghanistan to South America through our carefully curated collection of traditional and contemporary dresses.</p>
+                <p>We deliver high-quality Pakistani, Indian, and Afghani dresses to South America, ensuring that each piece reflects the authentic craftsmanship and cultural significance of its origin. Our commitment to quality and authenticity sets us apart, making ZAVA your trusted source for South Asian fashion.</p>
+                <a href="#contact" class="btn">Contact Us</a>
+            </div>
+        </div>
+        <div class="about-pattern"></div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2>Get In Touch</h2>
+                <p>Have questions about our collections? Reach out to us!</p>
+            </div>
+            <div class="contact-inner">
+                <div class="contact-info">
+                    <h2>Connect With Us</h2>
+                    <p>Follow us on social media to stay updated with our latest collections and promotions.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-link tiktok">
+                            <i class="fab fa-tiktok"></i>
+                        </a>
+                    </div>
+                    <ul class="contact-details">
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <span>info@zava-fashion.com</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-phone"></i>
+                            <span>+1 234 567 8901</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>South America</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="contact-form">
+                    <form action="#" method="post">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control" placeholder="Your Email" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Subject">
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control" placeholder="Your Message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-inner">
+            <div class="footer-col">
+                <h3>ZAVA</h3>
+                <p>Bringing premium South Asian fashion to South America. Discover authentic Pakistani, Indian, and Afghani dresses.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#collections">Collections</a></li>
+                    <li><a href="#brands">Brands</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Our Brands</h3>
+                <ul>
+                    <li><a href="#">Shadabahar</a></li>
+                    <li><a href="#">Aganoor</a></li>
+                    <li><a href="#">Bin Saeed</a></li>
+                    <li><a href="#">Tawwakkal</a></li>
+                    <li><a href="#">Bin Shan</a></li>
+                    <li><a href="#">Hania</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="container copyright">
+            <p>&copy; Developed By <a href="https://www.softoryze.com/" target="_blank">Softoryze</a></p>
+        </div>
+    </footer>
+
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+        
+        // Mobile menu toggle (simplified version)
+        document.querySelector('.mobile-menu').addEventListener('click', function() {
+            this.classList.toggle('active');
+            // Add mobile menu toggle functionality here
+        });
+        
+        // Animations for elements when they come into view
+        const animateOnScroll = function() {
+            const elements = document.querySelectorAll('.collection-item, .brand-item, .about-content, .contact-inner');
+            
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.2;
+                
+                if (elementPosition < screenPosition) {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }
+            });
+        };
+        
+        // Initialize elements
+        document.addEventListener('DOMContentLoaded', function() {
+            const elements = document.querySelectorAll('.collection-item, .brand-item, .about-content, .contact-inner');
+            elements.forEach(element => {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(30px)';
+                element.style.transition = 'all 0.8s ease';
+            });
+            
+            animateOnScroll();
+        });
+        
+        // Listen for scroll to trigger animations
+        window.addEventListener('scroll', animateOnScroll);
+    </script>
+</body>
+</html>
